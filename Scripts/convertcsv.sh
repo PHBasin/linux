@@ -1,5 +1,38 @@
 #!/bin/bash
 
+# ----------------------------------
+# gestion des options
+# ----------------------------------
+
+# FORCE=0 don't force overwrite, FORCE=1 force overwrite
+FORCE=0
+DELIMITER_IN='\t'
+
+while [ $# -gt 2 ]
+do
+	echo "args: $@"
+	case "$1" in
+		-f) 	FORCE=1
+			echo "option -f activée";;
+		-di) 	shift
+			DELIMITER_IN=$1
+			echo "option -di activée";;
+		*) echo "option inconnue : $1"
+			exit -1;;
+	esac
+	shift
+done
+
+echo "------ RECAP -----"
+echo "Force mode: ${FORCE}"
+echo "Delimiter input file: ${DELIMITER_IN}"
+echo "args: $@"
+echo "1st arg: $1"
+
+
+# ----------------------------------
+# conversion fichier1 => fichier2
+# ----------------------------------
 echo "paramètres: $*"
 echo "paramètres: $@"
 echo "nb paramètres: $#"
@@ -32,4 +65,17 @@ echo "Fichier entrée : ${FILENAMEIN}"
 echo "Fichier sortie : ${FILENAMEOUT}"
 
 # transforme le fichier FILENAMEIN en FILENAMEOUT
-cat ${FILENAMEIN} | sed -r -e "s/([^\t]*;[^\t]*)/\"\1\"/g" -e "y/\t/;/" > ${FILENAMEOUT}
+# cat ${FILENAMEIN} | sed -r -e "s/([^\t]*;[^\t]*)/\"\1\"/g" -e "y/\t/;/" > ${FILENAMEOUT}
+cat ${FILENAMEIN} | sed -r -e "s/([^${DELIMITER_IN}]*;[^${DELIMITER_IN}]*)/\"\1\"/g" \
+		-e "y/${DELIMITER_IN}/;/" > ${FILENAMEOUT}
+
+
+
+
+
+
+
+
+
+
+
