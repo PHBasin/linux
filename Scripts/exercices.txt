@@ -12,3 +12,10 @@ Exercice 2: compléter le script convertcsv.sh pour traiter les options
 -qo qc		:	quote char en sortie
 -f 			: 	écraser le fichier en sortie si existe déjà
 -qi qc		:	(super bonus) quote char en entrée
+
+Exercice 3: classeur de phot v2
+Reprendre l'exercice 1, en rangeant les photos dans
+des sous-répertoires du répertoire de sortie correspondant
+à la date de la photo:
+Exemple: IMG_20200731_112734.jpg => 20200731
+Les sous répertoires sont à créer si ils n'existent pas
