@@ -7,17 +7,30 @@
 # FORCE=0 don't force overwrite, FORCE=1 force overwrite
 FORCE=0
 DELIMITER_IN='\t'
+DELIMITER_OUT=';'
+QUOTECHAR_OUT='\"'
 
 while [ $# -gt 2 ]
 do
 	echo "args: $@"
 	case "$1" in
-		-f) 	FORCE=1
+		-f) 	
+			FORCE=1
 			echo "option -f activée";;
-		-di) 	shift
+		-di) 	
+			shift
 			DELIMITER_IN=$1
 			echo "option -di activée";;
-		*) echo "option inconnue : $1"
+		-do) 	
+			shift
+			DELIMITER_OUT=$1
+			echo "option -do activée";;
+		-qo) 	
+			shift
+			QUOTECHAR_OUT=$1
+			echo "option -qo activée";;
+		*) 
+			echo "option inconnue : $1"
 			exit -1;;
 	esac
 	shift
@@ -54,20 +67,22 @@ then
 	exit -1
 fi
 
-# vérifier que le 2e paramètre n'est pas un fichier ou répertoire existant
-if [ -e "${FILENAMEOUT}" ]
+# vérifier que le 2e paramètre n'est pas un fichier ou répertoire existant (pas en force mode)
+if [ "$FORCE" -eq 0 -a -e "${FILENAMEOUT}" ]
 then
 	echo "le fichier de sortie existe déja: ${FILENAMEOUT}"
 	exit -1
 fi
+
 
 echo "Fichier entrée : ${FILENAMEIN}"
 echo "Fichier sortie : ${FILENAMEOUT}"
 
 # transforme le fichier FILENAMEIN en FILENAMEOUT
 # cat ${FILENAMEIN} | sed -r -e "s/([^\t]*;[^\t]*)/\"\1\"/g" -e "y/\t/;/" > ${FILENAMEOUT}
-cat ${FILENAMEIN} | sed -r -e "s/([^${DELIMITER_IN}]*;[^${DELIMITER_IN}]*)/\"\1\"/g" \
-		-e "y/${DELIMITER_IN}/;/" > ${FILENAMEOUT}
+cat ${FILENAMEIN} | sed -r \
+		-e "s/([^${DELIMITER_IN}]*${DELIMITER_OUT}[^${DELIMITER_IN}]*)/${QUOTECHAR_OUT}\1${QUOTECHAR_OUT}/g" \
+		-e "y/${DELIMITER_IN}/${DELIMITER_OUT}/" > ${FILENAMEOUT}
 
 
 
