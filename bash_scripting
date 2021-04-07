@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# /bin/bash -i -c "command" if you're using another shell
+
+# -----------------------
+#        VARIABLES
+# -----------------------
+echo ${FOO-val}     # echo "val" if FOO unset
+echo ${FOO:-val}    # echo "val" il FOO unset (or null)
+echo ${FOO+val}     # echo "val" if FOO set
+echo ${FOO:+val}    # echo "val" if FOO set (and not null)
+echo ${FOO:=val}    # FOO="val" if FOO unset (or null)
+echo ${FOO:?msg}    # show msg and exit if $FOO is unset (or null)
+
+# -----------------------
+#     SHELL EXECUTION
+# -----------------------
+echo "${USERNAME:=$(whoami)}" # shows backslash and permits nesting
+echo "${USERNAME:=`whoami`}"  # doesn't
+
+# -----------------------
+#  CONFITIONAL EXECUTION
+# -----------------------
+"command1" && "command2" # command2 is executed if command1 succeeds
+"command1" || "command2" # command2 is executed if command1 fails
+
+# -----------------------
+#  POSITIONAL PARAMETERS
+# -----------------------
+echo "* - $*" # all positional arguments (as a single word)
+echo "@ - $@" # all positional arguments (as separate strings)
+echo "# - $#" # number of arguments
+echo "_ - $_" # last argument of previous command
+echo "1 - $1" # first argument
+echo "2 - $2" # second
+echo "3 - $3" # ...
+
+# --------------------
+#  SPECIAL PARAMETERS
+# --------------------
+echo "? - $?" # exit status of the previous task
+echo "! - $!" # PID of the last background task
+echo "$ - $$" # PID of the shell
+echo "0 - $0" # filename of the shell script
+echo "- - $-" # show the currently active shell options
+
+# --------------------
+#       LOOPS
+# --------------------
+# FOR
+for f in linux/photos/*.jpg
+do
+	echo "Un fichier image: $f"
+done
+
+for p in $@ # or range {5..10}
+do
+	echo "paramètre : $p"
+done
+
+# WHILE
+while [ $# -gt 2 ]
+do
+	echo "args: $@"
+	case "$1" in
+		-f) FORCE=1
+		    echo "option -f activée";;
+		-di) shift
+		     DELIMITER=$1
+		     echo "option -di activée";;
+		*) echo -e "\noption inconnue : $1"
+		   exit -1;;
+	esac
+	shift
+done
+
+# -----------------------
+#  PARAMETER EXPANSIONS
+# -----------------------
+IMAGE=IMG_la_maison_sur_la_coline.jpg
+IM_EXT=.jpg
+
+# BASICS
+# Manipulation
+echo ${IMAGE}       # IMG_la_maison_sur_la_coline.jpg
+echo ${#IMAGE}      # 31
+echo ${IMAGE,}      # iMG_la_maison_sur_la_coline.jpg
+echo ${IMAGE,,}     # img_la_maison_sur_la_coline.jpg
+echo ${IMAGE^}      # IMG_la_maison_sur_la_coline.jpg
+echo ${IMAGE^^}     # IMG_LA_MAISON_SUR_LA_COLINE.JPG
+# Slicing
+echo ${IMAGE:4}      # la_maison_sur_la_coline.jpg
+echo ${IMAGE:(-1)}   # g
+echo ${IMAGE:4:6}    # la_mai
+echo ${IMAGE:0:2}    # IM
+echo ${IMAGE::2}     # IM
+echo ${IMAGE::-4}    # IMG_la_maison_sur_la_coline
+echo ${IMAGE:(-2):1} # p
+# Show
+echo ${!IM*}    # IMAGE IM_EXT
+echo ${!IM@}    # IMAGE IM_EXT (as separate strings)
+
+# SUBSTITUTION
+# Prefix
+echo ${IMAGE#*_}       # la_maison_sur_la_coline.jpg
+echo ${IMAGE##*_}      # coline.jpg
+# Suffic
+echo ${IMAGE%.jpg}     # IMG_la_maison_sur_la_coline
+echo ${IMAGE%$IM_EXT}  # IMG_la_maison_sur_la_coline
+# Replace
+echo ${IMAGE/l/L}      # IMG_La_maison_sur_la_coline.jpg
+echo ${IMAGE//l/L}     # IMG_La_maison_sur_La_coLine.jpg
+# Combination
+echo ${IMAGE/%.jpg/.png}   # IMG_la_maison_sur_la_coline.png
+
+# Visit the following website for more information:
+# https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+
