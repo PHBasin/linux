@@ -47,7 +47,7 @@ echo "- - $-" # show the currently active shell options
 # --------------------
 #    TESTING FILES
 # --------------------
-echo "-e file	Checks if the file exists."
+echo "-e file	Checks if the file exists."            # [ -e filename ]
 echo "-d file	Checks if the file is a directory."
 echo "-f file	Checks if the file is a regular file (i.e. not a symbolic link, directory, etc.)"
 echo "-s file	Checks if the file is of non-zero size."
@@ -60,7 +60,7 @@ echo "-x file	Checks if the file is executable."
 # --------------------
 #   NUMERICAL TESTS
 # --------------------
-echo "-eq	Equal to"
+echo "-eq	Equal to"        # if [[ $age -eq 20 ]]
 echo "-ne	Not equal to"
 echo "-gt	Greater than"
 echo "-lt	Less than"
@@ -120,8 +120,8 @@ echo ${IMAGE::2}     # IM
 echo ${IMAGE::-4}    # IMG_la_maison_sur_la_coline
 echo ${IMAGE:(-2):1} # p
 # Show
-echo ${!IM*}    # IMAGE IM_EXT
-echo ${!IM@}    # IMAGE IM_EXT (as separate strings)
+echo ${!IM*}         # IMAGE IM_EXT
+echo ${!IM@}         # IMAGE IM_EXT (as separate strings)
 
 # SUBSTITUTION
 # Prefix
