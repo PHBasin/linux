@@ -58,6 +58,16 @@ echo "-w file	Checks if the file is writable."
 echo "-x file	Checks if the file is executable."
 
 # --------------------
+#   NUMERICAL TESTS
+# --------------------
+echo "-eq	Equal to"
+echo "-ne	Not equal to"
+echo "-gt	Greater than"
+echo "-lt	Less than"
+echo "-ge	Greater than or equal to"
+echo "-le	Less than or equal to"
+
+# --------------------
 #       LOOPS
 # --------------------
 # FOR
