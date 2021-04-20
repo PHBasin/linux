@@ -47,15 +47,16 @@ echo "- - $-" # show the currently active shell options
 # --------------------
 #    TESTING FILES
 # --------------------
-echo "-e file	Checks if the file exists."            # [ -e filename ]
-echo "-d file	Checks if the file is a directory."
-echo "-f file	Checks if the file is a regular file (i.e. not a symbolic link, directory, etc.)"
-echo "-s file	Checks if the file is of non-zero size."
-echo "-g file	Checks if the file has sgid set."
-echo "-u file	Checks if the file has suid set."
-echo "-r file	Checks if the file is readable."
-echo "-w file	Checks if the file is writable."
-echo "-x file	Checks if the file is executable."
+echo "-e if the file exists."            # [ -e filename ]
+echo "-d if the file is a directory."
+echo "-f if the file is a regular file (i.e. not a symbolic link, directory, etc.)"
+echo "-s if the file is of non-zero size."
+echo "-g if the file has sgid set."
+echo "-u if the file has suid set."
+echo "-r if the file is readable."
+echo "-w if the file is writable."
+echo "-x if the file is executable."
+echo "-z if the string is null."
 
 # --------------------
 #   NUMERICAL TESTS
