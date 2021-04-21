@@ -15,14 +15,38 @@ echo ${FOO:?msg}    # show msg and exit if $FOO is unset (or null)
 # -----------------------
 #     SHELL EXECUTION
 # -----------------------
-echo "${USERNAME:=$(whoami)}" # shows backslash and permits nesting
-echo "${USERNAME:=`whoami`}"  # doesn't
+echo $(whoami) # shows backslash and permits nesting
+echo `whoami`  # doesn't
 
 # -----------------------
 #  CONFITIONAL EXECUTION
 # -----------------------
 "command1" && "command2" # command2 is executed if command1 succeeds
 "command1" || "command2" # command2 is executed if command1 fails
+
+# -----------------------
+#      REDIRECTIONS
+# -----------------------
+# STDIN
+echo "command < file"         # redirect the file to a command
+echo "command << EOF"         # redirect keyboard to a command until EOF
+echo "command <<< string"     # redirect a string to a command
+echo "wc <(ls ./)"            # process substitution: output goes to a temporary file
+echo "diff <(ls /bin) <(ls /usr/bin)"
+echo "wc < <(ls ./)"          # similar to piping stdout of ls ./
+
+# STDOUT
+echo "command >"         # overwrites to file
+echo "command >>"        # appends to a file
+
+# STDERR
+echo "command 2>"
+
+# STDOUT & STDERR
+echo "&> /dev/null"      # preferred version
+echo ">& /dev/null"
+echo "> /dev/null 2>&1"  # semantically equivalent
+echo "2> /dev/null >&2"
 
 # -----------------------
 #  POSITIONAL PARAMETERS
@@ -47,7 +71,7 @@ echo "- - $-" # show the currently active shell options
 # --------------------
 #    TESTING FILES
 # --------------------
-echo "-e if the file exists."            # [ -e filename ]
+echo "-e if the file exists."      # [ -e filename ]
 echo "-d if the file is a directory."
 echo "-f if the file is a regular file (i.e. not a symbolic link, directory, etc.)"
 echo "-s if the file is of non-zero size."
@@ -61,12 +85,12 @@ echo "-z if the string is null."
 # --------------------
 #   NUMERICAL TESTS
 # --------------------
-echo "-eq	Equal to"        # if [[ $age -eq 20 ]]
-echo "-ne	Not equal to"
-echo "-gt	Greater than"
-echo "-lt	Less than"
-echo "-ge	Greater than or equal to"
-echo "-le	Less than or equal to"
+echo "-eq Equal to"                # if [[ $age -eq 20 ]]
+echo "-ne Not equal to"
+echo "-gt Greater than"
+echo "-lt Less than"
+echo "-ge Greater than or equal to"
+echo "-le Less than or equal to"
 
 # --------------------
 #       LOOPS
