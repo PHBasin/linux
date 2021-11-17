@@ -19,7 +19,7 @@ echo $(whoami) # shows backslash and permits nesting
 echo `whoami`  # doesn't
 
 # -----------------------
-#  CONFITIONAL EXECUTION
+#  CONDITIONAL EXECUTION
 # -----------------------
 "command1" && "command2" # command2 is executed if command1 succeeds
 "command1" || "command2" # command2 is executed if command1 fails
