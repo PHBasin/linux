@@ -6,7 +6,7 @@
 #        VARIABLES
 # -----------------------
 echo ${FOO-val}     # echo "val" if FOO unset
-echo ${FOO:-val}    # echo "val" il FOO unset (or null)
+echo ${FOO:-val}    # echo "val" if FOO unset (or null)
 echo ${FOO+val}     # echo "val" if FOO set
 echo ${FOO:+val}    # echo "val" if FOO set (and not null)
 echo ${FOO:=val}    # FOO="val" if FOO unset (or null)
