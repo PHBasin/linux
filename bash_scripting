@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# /bin/bash -i -c "command" if you're using another shell
+/bin/bash -i -c "command" if you're using another shell
 
 # -----------------------
 #        VARIABLES
 # -----------------------
-echo ${FOO-val}     # echo "val" if FOO unset
-echo ${FOO:-val}    # echo "val" if FOO unset (or null)
-echo ${FOO+val}     # echo "val" if FOO set
-echo ${FOO:+val}    # echo "val" if FOO set (and not null)
-echo ${FOO:=val}    # FOO="val" if FOO unset (or null)
-echo ${FOO:?msg}    # show msg and exit if $FOO is unset (or null)
+${FOO-val}     # echo "val" if FOO unset
+${FOO:-val}    # echo "val" if FOO unset (or null)
+${FOO+val}     # echo "val" if FOO set
+${FOO:+val}    # echo "val" if FOO set (and not null)
+${FOO:=val}    # FOO="val" if FOO unset (or null)
+${FOO:?msg}    # show msg and exit if $FOO is unset (or null)
 
 # -----------------------
 #     SHELL EXECUTION
@@ -28,69 +28,69 @@ echo `whoami`  # doesn't
 #      REDIRECTIONS
 # -----------------------
 # STDIN
-echo "command < file"         # redirect the file to a command
-echo "command << EOF"         # redirect keyboard to a command until EOF
-echo "command <<< string"     # redirect a string to a command
-echo "wc <(ls ./)"            # process substitution: output goes to a temporary file
-echo "diff <(ls /bin) <(ls /usr/bin)"
-echo "wc < <(ls ./)"          # similar to piping stdout of ls ./
+command < file         # redirect the file to a command
+command << EOF         # redirect keyboard to a command until EOF
+command <<< string     # redirect a string to a command
+wc <(ls ./)            # process substitution: output goes to a temporary file
+diff <(ls /bin) <(ls /usr/bin)
+wc < <(ls ./)          # similar to piping stdout of ls ./
 
 # STDOUT
-echo "command >"         # overwrites to file
-echo "command >>"        # appends to a file
+command >         # overwrites to file
+command >>        # appends to a file
 
 # STDERR
-echo "command 2>"
+command 2>
 
 # STDOUT & STDERR
-echo "&> /dev/null"      # preferred version
-echo ">& /dev/null"
-echo "> /dev/null 2>&1"  # semantically equivalent
-echo "2> /dev/null >&2"
+command &> /dev/null      # preferred version
+command >& /dev/null
+command > /dev/null 2>&1  # semantically equivalent
+command 2> /dev/null >&2
 
 # -----------------------
 #  POSITIONAL PARAMETERS
 # -----------------------
-echo "* - $*" # all positional arguments (as a single word)
-echo "@ - $@" # all positional arguments (as separate strings)
-echo "# - $#" # number of arguments
-echo "_ - $_" # last argument of previous command
-echo "1 - $1" # first argument
-echo "2 - $2" # second
-echo "3 - $3" # ...
+$*    # all positional arguments (as a single word)
+$@    # all positional arguments (as separate strings)
+$#    # number of arguments
+$_    # last argument of previous command
+$1    # first argument
+$2    # second
+$3    # ...
 
 # --------------------
 #  SPECIAL PARAMETERS
 # --------------------
-echo "? - $?" # exit status of the previous task
-echo "! - $!" # PID of the last background task
-echo "$ - $$" # PID of the shell
-echo "0 - $0" # filename of the shell script
-echo "- - $-" # show the currently active shell options
+$?    # exit status of the previous task
+$!    # PID of the last background task
+$$    # PID of the shell
+$0    # filename of the shell script
+$-    # show the currently active shell options
 
 # --------------------
 #    TESTING FILES
 # --------------------
-echo "-e if the file exists."      # [ -e filename ]
-echo "-d if the file is a directory."
-echo "-f if the file is a regular file (i.e. not a symbolic link, directory, etc.)"
-echo "-s if the file is of non-zero size."
-echo "-g if the file has sgid set."
-echo "-u if the file has suid set."
-echo "-r if the file is readable."
-echo "-w if the file is writable."
-echo "-x if the file is executable."
-echo "-z if the string is null."
+-e    # if the file exists e.g. [ -e filename ]
+-d    # if the file is a directory
+-f    # if the file is a regular file (i.e. not a symbolic link, directory, etc.)
+-s    # if the file is of non-zero size
+-g    # if the file has sgid set
+-u    # if the file has suid set
+-r    # if the file is readable
+-w    # if the file is writable
+-x    # if the file is executable
+-z    # if the string is null
 
 # --------------------
 #   NUMERICAL TESTS
 # --------------------
-echo "-eq Equal to"                # if [[ $age -eq 20 ]]
-echo "-ne Not equal to"
-echo "-gt Greater than"
-echo "-lt Less than"
-echo "-ge Greater than or equal to"
-echo "-le Less than or equal to"
+-eq    # Equal to e.g. if [[ $age -eq 20 ]]
+-ne    # Not equal to
+-gt    # Greater than
+-lt    # Less than
+-ge    # Greater than or equal to
+-le    # Less than or equal to
 
 # --------------------
 #       LOOPS
@@ -163,4 +163,3 @@ echo ${IMAGE/%.jpg/.png}   # IMG_la_maison_sur_la_coline.png
 
 # Visit the following website for more information:
 # https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
-
